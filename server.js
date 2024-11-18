@@ -2,17 +2,10 @@ const express = require('express');
 const multer  = require('multer');
 const fs = require('fs');
 const upload = multer({ dest: 'uploads/' });
-const { Client } = require('pg');
+
 
 const app = express();
 
-const cn = {
-    host: 'localhost', // server name or IP address;
-    port: 5432,
-    database: 'myDatabase',
-    user: 'myUser',
-    password: 'myPassword'
-};
 
 app.post('/upload', upload.single('file'), (req, res) => {
   // The file information is in req.file
@@ -30,6 +23,8 @@ app.post('/upload', upload.single('file'), (req, res) => {
       // res.json({ message: 'File uploaded successfully' });
     }
   });
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Headers', "*");
   res.json({ message: 'File uploaded successfully!' });
 });
 
